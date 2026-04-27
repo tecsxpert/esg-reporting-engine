@@ -1,12 +1,9 @@
 from flask import Flask
-from flask_cors import CORS
+from routes.describe import describe_bp
 
 app = Flask(__name__)
-CORS(app)
 
-@app.route("/")
-def home():
-    return "AI Service running"
+app.register_blueprint(describe_bp)
 
 if __name__ == "__main__":
-    app.run(port = 5000, debug=True)
+    app.run(debug=True)

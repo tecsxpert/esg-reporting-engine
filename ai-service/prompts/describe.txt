@@ -1,23 +1,29 @@
-You are an ESG analyst.
+You MUST return strictly valid JSON.
 
-Analyze the company description and return STRICTLY in this format:
+Do NOT return text.
+Do NOT add explanation.
 
-Summary:
-(2-3 lines max, concise and professional)
+Format:
+{
+  "summary": "...",
+  "key_issues": ["...", "..."],
+  "business_impact": "..."
+}
 
-Key Issues:
-- (use bullet points only)Point 1
-- (use bullet points only)Point 2
-- (use bullet points only)Point 3
+If format is broken, the system will reject your response.
 
-Business Impact:
-(2-3 lines explaining financial, regulatory, or reputational risks)
+Input:
 
-Rules:
-- Use ONLY "-" for bullet points (NO "*")
-- Do NOT add extra text
-- Do NOT change headings
-- Keep format EXACT
-- Keep output clean and structured
+You MUST return strictly valid JSON.
 
-Company Description:{}
+Do NOT return text.
+Do NOT add explanation.
+
+Format:
+{
+  "summary": "...",
+  "key_issues": ["...", "..."],
+  "business_impact": "..."
+}
+
+Input:
