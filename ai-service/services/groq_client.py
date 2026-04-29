@@ -1,50 +1,60 @@
 import os
 import requests
-import time
+import json
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
-# Get API key
 API_KEY = os.getenv("GROQ_API_KEY")
 
-# API URL
-URL = "https://api.groq.com/openai/v1/chat/completions"
 
-# Headers
-HEADERS = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Content-Type": "application/json"
-}
+def call_groq(prompt):
+    url = "https://api.groq.com/openai/v1/chat/completions"
 
-def generate_response(prompt, retries=3):
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
     data = {
         "model": "llama-3.3-70b-versatile",
         "messages": [
             {"role": "user", "content": prompt}
-        ]
+        ],
+        "temperature": 0.3
     }
 
-    for attempt in range(retries):
+    response = requests.post(url, json=data, headers=headers)
+
+    # Debug print
+    print("RAW RESPONSE:", response.text)
+
+    result = response.json()
+
+
+    if "choices" in result:
+        content = result["choices"][0]["message"]["content"]
+
         try:
-            response = requests.post(URL, headers=HEADERS, json=data, timeout=10)
-
-            # Success
-            if response.status_code == 200:
-                result = response.json()
-                return result["choices"][0]["message"]["content"]
-
-            # Error response
+            parsed = json.loads(content)
+            if isinstance(parsed, dict):
+                return {
+                    "summary": parsed.get("summary", ""),
+                    "key_issues": parsed.get("key_issues", []),
+                    "business_impact": parsed.get("business_impact", "")
+                }
             else:
-                print(f"Attempt {attempt+1} failed with status {response.status_code}")
-                print(response.text)
-
-        except Exception as e:
-            print(f"Attempt {attempt+1} exception: {e}")
-
-        # wait before retry
-        time.sleep(2)
-
-    # Fallback response (VERY IMPORTANT)
-    return "AI service is currently unavailable. Please try again later."
+                return parsed
+        except:
+            # fallback (convert text → structured)
+            return {
+            "summary": content,
+            "key_issues": [],
+            "business_impact": ""
+        }
+    else:
+        return {
+            "error": result
+        }
+    
+    

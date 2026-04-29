@@ -1,42 +1,43 @@
 from flask import Blueprint, request, jsonify
-from services.groq_client import generate_response
+from services.groq_client import call_groq
 from datetime import datetime
 
 describe_bp = Blueprint("describe", __name__)
 
+#loading prompt
+def load_prompt(user_input):
+    with open("prompts/describe.txt") as f:
+        base_prompt = f.read()
+    return base_prompt + user_input
+
+
 @describe_bp.route("/describe", methods=["POST"])
 def describe():
-    try:
-        data = request.get_json()
+    data = request.get_json()
 
-        if not data or "text" not in data:
-            return jsonify({"error": "Missing 'text' field"}), 400
+    #validation!
+    if not data or "text" not in data:
+        return jsonify({"error": "Missing 'text' field"}), 400
 
-        user_input = data["text"]
+    user_input = data["text"]
 
-        # Strip HTML (basic)
-        user_input = user_input.replace("<", "").replace(">", "")
+    if len(user_input.strip()) == 0:
+        return jsonify({"error": "Empty input"}), 400
 
-        # Detect prompt injection
-        blocked = [
-            "ignore previous instructions",
-            "give api key",
-            "reveal secret",
-            "bypass",
-            "system prompt"
-        ]
+    #prompt
+    prompt = load_prompt(user_input)
 
-        for word in blocked:
-            if word in user_input.lower():
-                return jsonify({"error": "Invalid input detected"}), 400
+    #AI call
+    ai_response = call_groq(prompt)
 
-        ai_output = generate_response(user_input)
-
+    #response
+    if isinstance(ai_response, dict):
         return jsonify({
-            "input": user_input,
-            "output": ai_output,
-            "generated_at": datetime.now().isoformat()
-        })
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        **ai_response,
+        "generated_at": datetime.utcnow().isoformat()
+    })
+    else:
+        return jsonify({
+            "result": ai_response,
+            "generated_at": datetime.utcnow().isoformat()
+})
