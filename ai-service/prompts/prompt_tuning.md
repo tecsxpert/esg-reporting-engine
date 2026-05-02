@@ -1,24 +1,27 @@
-# Prompt Tuning
+# Prompt Tuning (Day 6)
 
-## Prompt:
+Base prompt idea:
 Explain ESG in simple terms
 
-| Input | Output | Score (/10) |
-|------|-------|-------------|
-| ESG | Good explanation | 8 |
-| Climate change | Clear | 9 |
-| Pollution | Not clear | 6 |
-| Governance | Good | 7 |
-| Sustainability | Good | 8 |
-| Waste management | Weak | 6 |
-| Carbon footprint | Clear | 9 |
-| Ethics | Basic | 7 |
-| Social responsibility | Good | 8 |
-| Green energy | Good | 8 |
+## Test Inputs & Scores
+
+| Input | Output Summary | Score (/10) |
+|------|---------------|-------------|
+| ESG | Basic explanation | 7 |
+| Explain ESG | Clear | 8 |
+| ESG meaning | Good | 8 |
+| ESG for beginners | Very clear | 9 |
+| What is ESG? | Good | 8 |
+| ESG in simple words | Clear | 9 |
+| ESG for students | Good | 8 |
+| ESG full form | Short | 7 |
+| ESG importance | Good | 8 |
+| ESG examples | Very good | 9 |
 
 ## Improvements
-- Improve clarity for low scores
-- Add examples
+- Added examples for better clarity
+- Ensured simple language
+- Handled keywords like "examples", "importance"
 
-## Updated Prompt
-Explain ESG in simple terms with examples for beginners.
+## Final Prompt Style
+Explain ESG (Environmental, Social, Governance) in simple terms with examples.

@@ -1,14 +1,16 @@
 package com.example.backend.controller;
 
+import com.example.backend.client.AiServiceClient;
+import java.util.Map;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.client.AiServiceClient;
-
 @RestController
 @RequestMapping("/api/ai")
+@CrossOrigin(origins = "*")  // VERY IMPORTANT (fixes frontend error)
 public class AiController {
 
     private final AiServiceClient aiServiceClient;
@@ -18,7 +20,9 @@ public class AiController {
     }
 
     @PostMapping("/describe")
-    public String describe(@RequestBody String text) {
+    public String describe(@RequestBody Map<String, String> request) {
+
+        String text = request.get("text");
 
         if (text == null || text.trim().isEmpty()) {
             return "Error: Input text is empty";
@@ -30,11 +34,13 @@ public class AiController {
             return "Error: AI service not responding";
         }
 
-        return response; 
+        return response;
     }
 
     @PostMapping("/recommend")
-    public String recommend(@RequestBody String text) {
+    public String recommend(@RequestBody Map<String, String> request) {
+
+        String text = request.get("text");
 
         if (text == null || text.trim().isEmpty()) {
             return "Error: Input text is empty";
@@ -46,6 +52,6 @@ public class AiController {
             return "Error: AI service not responding";
         }
 
-        return response; 
+        return response;
     }
 }
