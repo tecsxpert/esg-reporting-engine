@@ -27,15 +27,11 @@ def process_ai(task_id, user_input):
     print("AI RAW:", ai_response)
 
     try:
-        match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+        if isinstance(ai_response, dict):
+            recommendations = ai_response.get("recommendations", [])
+        else:
+            raise ValueError("No JSON returned from AI")
 
-        if not match:
-            raise ValueError("No JSON found")
-
-        json_str = match.group()
-        ai_json = json.loads(json_str)
-
-        recommendations = ai_json.get("recommendations", [])
         if not isinstance(recommendations, list):
             recommendations = []
 

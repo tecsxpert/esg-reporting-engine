@@ -1,14 +1,19 @@
 from flask import Blueprint, request, jsonify
+import os
 from services.groq_client import call_groq
 from datetime import datetime
 
 describe_bp = Blueprint("describe", __name__)
 
+import os
+
 #loading prompt
 def load_prompt(user_input):
-    with open("prompts/describe.txt") as f:
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    prompt_path = os.path.join(BASE_DIR, "prompts", "describe.txt")
+    with open(prompt_path, "r") as f:
         base_prompt = f.read()
-    return base_prompt + user_input
+    return base_prompt + "\n" + user_input
 
 
 @describe_bp.route("/describe", methods=["POST"])

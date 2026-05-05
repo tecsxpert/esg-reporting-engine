@@ -1,12 +1,12 @@
 import os
 import requests
 import json
+import re
 from dotenv import load_dotenv
 
 load_dotenv()
 
 API_KEY = os.getenv("GROQ_API_KEY")
-
 
 def call_groq(prompt):
     url = "https://api.groq.com/openai/v1/chat/completions"
@@ -31,30 +31,22 @@ def call_groq(prompt):
 
     result = response.json()
 
-
     if "choices" in result:
         content = result["choices"][0]["message"]["content"]
 
         try:
-            parsed = json.loads(content)
-            if isinstance(parsed, dict):
-                return {
-                    "summary": parsed.get("summary", ""),
-                    "key_issues": parsed.get("key_issues", []),
-                    "business_impact": parsed.get("business_impact", "")
-                }
+            match = re.search(r'\{.*\}', content, re.DOTALL)
+            if match:
+                json_str = match.group()
             else:
-                return parsed
+                json_str = content
+            
+            parsed = json.loads(json_str)
+            return parsed
         except:
-            # fallback (convert text → structured)
-            return {
-            "summary": content,
-            "key_issues": [],
-            "business_impact": ""
-        }
+            return content
     else:
         return {
             "error": result
         }
-    
     
