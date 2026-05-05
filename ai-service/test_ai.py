@@ -4,7 +4,7 @@ from services.groq_client import call_groq
 def load_prompt(text):
     with open("prompts/describe.txt") as f:
         template = f.read()
-    return template.replace("{input}", text)
+    return template + "\n" + text
 
 # 5 test inputs for testing the AI service
 inputs = [
