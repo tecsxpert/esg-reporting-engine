@@ -61,7 +61,34 @@ def call_groq(prompt):
     }
 
     start_time = time.time()
-    response = requests.post(url, json=data, headers=headers)
+    try:
+        # Added 5s timeout for optimisation, prevents hanging
+        response = requests.post(url, json=data, headers=headers, timeout=5)
+        response.raise_for_status()
+    except Exception as e:
+        end_time = time.time()
+        response_time = end_time - start_time
+        total_response_time += response_time
+        request_count += 1
+        
+        print(f"Groq API Error: {e}")
+        return {
+            "is_fallback": True,
+            "summary": "AI Service is temporarily unavailable. This is a fallback response.",
+            "key_issues": ["AI Service Error"],
+            "business_impact": "Could not be determined due to AI unavailability.",
+            "recommendations": [
+                {
+                    "action_type": "Retry",
+                    "description": "Please try the request again later.",
+                    "priority": "low"
+                }
+            ],
+            "title": "Fallback Report",
+            "overview": "The AI model is currently unreachable.",
+            "key_items": ["Service Error"]
+        }
+        
     end_time = time.time()
     
     # Track response time
