@@ -37,5 +37,14 @@ def add_security_headers(response):
 def home():
     return {"message": "AI Service Running"}
 
+@app.route("/health")
+def health():
+    return {"status": "UP", "message": "AI Service Running"}
+
+@app.route("/generate_report", methods=["POST"])
+def generate_report():
+    # Dummy endpoint for Demo purposes
+    return jsonify({"report_url": "https://example.com/report.pdf", "status": "generated"})
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
