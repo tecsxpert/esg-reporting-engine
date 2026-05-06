@@ -31,7 +31,8 @@ def recommend():
 
         #  structured prompt
         prompt = f"""
-        Give 3 ESG recommendations for the following input.
+        Give 3 actionable corporate policies and ESG recommendations for the following input.
+        Make sure the recommendations are specific, measurable, and highly relevant.
         Return ONLY JSON array like:
         [
           {{
