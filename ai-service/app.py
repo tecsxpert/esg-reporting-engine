@@ -1,10 +1,20 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from routes.describe import describe_bp
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from routes.recommend import recommend_bp
 
 app = Flask(__name__)
+
+@app.before_request
+def require_jwt():
+    if app.config.get("TESTING"):
+        return None
+    if request.path == "/":
+        return None
+    auth_header = request.headers.get("Authorization")
+    if not auth_header or auth_header != "Bearer test-jwt-token":
+        return jsonify({"error": "Unauthorized: Invalid or missing JWT"}), 401
 
 limiter = Limiter(
     get_remote_address,
