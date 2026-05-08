@@ -11,7 +11,9 @@ public class Report {
     private Long id;
 
     private String companyName;
+
     private String category;
+
     private Integer score;
 
     public Report() {
@@ -25,6 +27,10 @@ public class Report {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
