@@ -138,7 +138,58 @@ For Windows PowerShell:
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
+# Project Screenshots
 
+## Authentication API
+![Authentication](screenshots/authentication-auth.png)
+
+## Authorization Test 1
+![Auth1](screenshots/authop1.png)
+
+## Authorization Test 2
+![Auth2](screenshots/authop2.png)
+
+## Search By Company
+![Company](screenshots/by company.png)
+
+## Database Records
+![Database](screenshots/databases.png)
+
+## Delete API Output
+![Delete](screenshots/deleteoprtn.png)
+
+## Get By ID
+![GetById](screenshots/getbyid.png)
+
+## Get By ID Output
+![GetByIdOutput](screenshots/getbyidop.png)
+
+## GET API
+![GetAPI](screenshots/getop.png)
+
+## Login Page
+![Login](screenshots/login page.png)
+
+## API Method Check
+![MethodCheck](screenshots/methodsAPICheck.png)
+
+## POST Check Output
+![PostCheck](screenshots/postcheckop.png)
+
+## POST API
+![PostAPI](screenshots/postop.png)
+
+## Project Structure
+![Structure](screenshots/project structure.png)
+
+## Search By Category
+![Category](screenshots/search by catop.png)
+
+## Swagger UI Test 1
+![Swagger1](screenshots/swag 1st test.png)
+
+## Swagger UI Test 2
+![Swagger2](screenshots/swag 2nd.png)
 ---
 
 # Authentication
