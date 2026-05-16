@@ -150,7 +150,7 @@ For Windows PowerShell:
 ![Auth2](screenshots/authop2.png)
 
 ## Search By Company
-![Company](screenshots/by company.png)
+![Company](screenshots/by-company.png)
 
 ## Database Records
 ![Database](screenshots/databases.png)
@@ -168,7 +168,7 @@ For Windows PowerShell:
 ![GetAPI](screenshots/getop.png)
 
 ## Login Page
-![Login](screenshots/login page.png)
+![Login](screenshots/login-page.png)
 
 ## API Method Check
 ![MethodCheck](screenshots/methodsAPICheck.png)
@@ -180,16 +180,16 @@ For Windows PowerShell:
 ![PostAPI](screenshots/postop.png)
 
 ## Project Structure
-![Structure](screenshots/project structure.png)
+![Structure](screenshots/project-structure.png)
 
 ## Search By Category
-![Category](screenshots/search by catop.png)
+![Category](screenshots/search-by-catop.png)
 
 ## Swagger UI Test 1
-![Swagger1](screenshots/swag 1st test.png)
+![Swagger1](screenshots/swag-1st-test.png)
 
 ## Swagger UI Test 2
-![Swagger2](screenshots/swag 2nd.png)
+![Swagger2](screenshots/swag-2nd.png)
 ---
 
 # Authentication
